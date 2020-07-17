@@ -1,11 +1,12 @@
-authors = ["Ian Williamson <iwill@stanford.edu>"]
 name = "FDFDViz"
 uuid = "b7d3d356-afc9-11e8-3c69-637e654e70cd"
+authors = ["Ian Williamson <iwill@stanford.edu>"]
 version = "0.2.0"
 
 [deps]
-FDFD = "47249150-a57d-11e8-0850-953555c55631"
 AxisArrays = "39de3d68-74b9-583c-8d2d-e117c070f3a9"
-PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
-PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
+FDFD = "47249150-a57d-11e8-0850-953555c55631"
+GeometryPrimitives = "17051e67-205e-509e-8301-03b320b998e6"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"

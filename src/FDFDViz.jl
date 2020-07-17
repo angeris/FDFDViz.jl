@@ -2,7 +2,7 @@ module FDFDViz
 
 using FDFD, Plots, AxisArrays, Printf
 
-export plot_field, plot_device, add_scalebar, add_wavelengthbar
+export plot_field, plot_device
 
 "    plot_field(ax, field::Field; cbar::Bool=false, funcz=real)"
 function plot_field(field::Field; cbar::Bool=false, funcz=real, component=nothing)
@@ -29,23 +29,25 @@ function plot_field(field::Field; cbar::Bool=false, funcz=real, component=nothin
 	extents = [ field.grid.bounds[1][1], field.grid.bounds[2][1],
 	            field.grid.bounds[1][2], field.grid.bounds[2][2] ];
 
-	plot = heatmap(Z, c=cmap, extent=extents, origin="lower", clims=(vmin, vmax), label="||E||")
+	p = heatmap(Z, c=cmap, extent=extents, origin="lower", clims=(vmin, vmax), label="||E||")
 	xlabel!("x");
 	ylabel!("y");
 	title!("ω/2π = $(real(field.ω/2π/1e12)) THz");
+
+	return p
 end
 
 "    plot_device(device::AbstractDevice; outline::Bool=false, lc::String=\"k\", lcm::String=\"k\")"
 function plot_device(device::AbstractDevice; outline::Bool=false, lc::String="k", lcm::String="k")
-	fig, ax = subplots(1);
-	plot_device(ax, device; outline=outline, lc=lc, lcm=lcm);
-	return ax
+	return plot_device(device; outline=outline, lc=lc, lcm=lcm);
 end
 
 "    plot_device(ax, device::AbstractDevice; outline::Bool=true, lc::String=\"k\", lcm::String=\"k\")"
 function plot_device(ax, device::AbstractDevice; outline::Bool=true, lc::String="k", lcm::String="k")
 	Z = real.(permutedims(device.ϵᵣ, (2,1)));
 	Zi = imag.(permutedims(device.ϵᵣ, (2,1)));
+
+	p = plot()
 
 	if outline
 		contour!(xc(device.grid), yc(device.grid), Z, linewidths=0.25, colors=lc);
@@ -63,6 +65,8 @@ function plot_device(ax, device::AbstractDevice; outline::Bool=true, lc::String=
 	end
 	xlabel!("x");
 	ylabel!("y");
+
+	return p
 end
 
 end
